@@ -205,8 +205,8 @@ const BaseContent = () => {
 
   const onGithubBtnClick = () => {
     openUrl(
-      'https://github.com/TencentEdgeOne/pages-templates/blob/main/examples/free-deep-research/README_zh-CN.md',
-      'https://github.com/TencentEdgeOne/pages-templates/tree/main/examples/free-deep-research'
+      'https://github.com/parasfis/free-deep-research/blob/main/README.md',
+      'https://github.com/parasfis/free-deep-research'
     );
   };
 
