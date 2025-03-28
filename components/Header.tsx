@@ -7,7 +7,6 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  onDeployBtnClick,
   onGithubBtnClick,
 }) => {
   const { t } = useLanguage();
