@@ -1,6 +1,6 @@
 export const enLocale = {
   welcome: {
-    title: 'Business Deep Research',
+    title: 'TEAM : SPARK TITANS - Business Deep Research',
     description:
       'An AI model specialized in research tasks. Ask complex questions and get comprehensive answers supported by online evidence',
     promote: '',
