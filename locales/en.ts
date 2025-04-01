@@ -1,9 +1,9 @@
 export const enLocale = {
   welcome: {
-    title: 'Free Deep Research',
+    title: 'Business Deep Research',
     description:
       'An AI model specialized in research tasks. Ask complex questions and get comprehensive answers supported by online evidence',
-    promote: 'Available for free on',
+    promote: '',
   },
   buttons: {
     deploy: 'Deploy Now',
