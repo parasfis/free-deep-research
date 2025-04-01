@@ -7,6 +7,7 @@ import { zhLocale } from '@/locales/zh';
 // Define available languages
 export const LANGUAGES = {
   en: 'English',
+  zh: '',
 };
 
 export type LanguageType = keyof typeof LANGUAGES;
