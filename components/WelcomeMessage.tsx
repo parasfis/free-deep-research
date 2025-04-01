@@ -1,4 +1,4 @@
-import React from 'react';
+  import React from 'react';
 import { useLanguage } from './LanguageSwitcher';
 
 interface WelcomeMessageProps {
@@ -22,15 +22,6 @@ export const WelcomeMessage: React.FC<WelcomeMessageProps> = ({
         </h2>
         <p className="text-gray-600">{t('welcome.description')}</p>
 
-        <p className="mt-2 text-sm text-gray-500">
-          {t('welcome.promote')}{' '}
-          <button
-            onClick={onEdgeOneAIBtnClick}
-            className="mt-4 text-blue-600 hover:text-blue-800 hover:underline focus:outline-none"
-          >
-            EdgeOne Pages
-          </button>
-        </p>
       </div>
     </div>
   );
