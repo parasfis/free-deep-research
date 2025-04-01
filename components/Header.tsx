@@ -30,12 +30,6 @@ export const Header: React.FC<HeaderProps> = ({
             <span>{t('buttons.github')}</span>
           </button>
 
-          <button
-            onClick={onDeployBtnClick}
-            className="flex items-center px-3 py-1.5 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-500 rounded-md hover:opacity-90"
-          >
-            <span>{t('buttons.deploy')}</span>
-          </button>
         </div>
       </div>
     </header>
