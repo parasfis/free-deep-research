@@ -60,6 +60,8 @@ export async function tavilySearch(
         query: q,
         time_range: 'year',
         include_answer: 'advanced',
+        search_depth: 'advanced',
+        max_results: 15,
       }),
     });
 
