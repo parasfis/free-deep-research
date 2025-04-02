@@ -20,7 +20,7 @@ export const WelcomeMessage: React.FC<WelcomeMessageProps> = ({
       {/* Banner Image */}
       <div className="w-full max-w-5xl mb-8">
         <Image
-          src="/images/banner.jpg"
+          src="/images/banner.png"
           alt="TEAM: SPARK TITANS"
           width={1024}
           height={200}
