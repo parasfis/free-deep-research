@@ -64,7 +64,7 @@ export async function onRequest({ request }: any) {
 
     // @ts-ignore-next-line
     const res = await AI.chatCompletions({
-      model: '@tx/deepseek-ai/deepseek-r1-distill-qwen-32b',
+      model: '@tx/deepseek-ai/DeepSeek-V3-Base',
       messages: messages,
       stream: true,
       temperature,
