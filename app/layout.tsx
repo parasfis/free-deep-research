@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: '/images/banner.jpg',
+        url: '/images/banner.png',
         width: 1024,
         height: 200,
         alt: 'TEAM: SPARK TITANS - Business Deep Research',
