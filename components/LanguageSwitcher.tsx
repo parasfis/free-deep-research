@@ -2,26 +2,23 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { enLocale } from '@/locales/en';
-import { zhLocale } from '@/locales/zh';
+
+// Remove zh from language types
+export type LanguageType = 'en';
 
 // Define available languages
-export const LANGUAGES = {
+export const LANGUAGES: Record<LanguageType, string> = {
   en: 'English',
-  zh: '',
 };
 
-export type LanguageType = keyof typeof LANGUAGES;
-
 // Create language context
+const LanguageContext = createContext<LanguageContextType | null>(null);
+
 interface LanguageContextType {
   language: LanguageType;
   setLanguage: (lang: LanguageType) => void;
   t: (key: string) => string;
 }
-
-const LanguageContext = createContext<LanguageContextType | undefined>(
-  undefined
-);
 
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
@@ -34,6 +31,7 @@ export const useLanguage = () => {
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  // Default to English only
   const [language, setLanguageState] = useState<LanguageType>('en');
   const [isClient, setIsClient] = useState(false);
 
@@ -52,8 +50,8 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  // Get translations based on selected language
-  const translations = language === 'zh' ? zhLocale : enLocale;
+  // Get translations (only English now)
+  const translations = enLocale;
 
   // Translation function
   const t = (key: string) => {
@@ -78,31 +76,18 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
-export const LanguageSwitcher: React.FC = () => {
-  const { language, setLanguage } = useLanguage();
+// If there's a language switcher UI component in this file, update it to only show English
+// For example, if there's a component like this:
 
+export const LanguageSwitcherUI: React.FC = () => {
+  const { language, setLanguage } = useLanguage();
+  
+  // Since we only have English now, this component might not be needed anymore
+  // You could either remove it or simplify it to just show the current language
+  
   return (
-    <div className="relative inline-block">
-      <select
-        value={language}
-        onChange={(e) => setLanguage(e.target.value as LanguageType)}
-        className="appearance-none px-3 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 pr-8 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-      >
-        {Object.entries(LANGUAGES).map(([code, name]) => (
-          <option key={code} value={code}>
-            {name}
-          </option>
-        ))}
-      </select>
-      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-        <svg
-          className="h-4 w-4 fill-current"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-        >
-          <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-        </svg>
-      </div>
+    <div className="language-switcher">
+      <span>Language: {LANGUAGES[language]}</span>
     </div>
   );
 };
