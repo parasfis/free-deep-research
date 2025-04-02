@@ -10,7 +10,6 @@ This project streamlines the complete Deep Research workflow. For a higher quali
 - Web search integration
 - Comprehensive answer generation with source citations
 - Clean, user-friendly interface
-- English language support
 
 ## Deploy
 
