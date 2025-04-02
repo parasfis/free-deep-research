@@ -1,9 +1,12 @@
+// Remove the LanguageSwitcher import and component usage
+// For example:
+
 import React from 'react';
-import { useLanguage, LanguageSwitcher } from './LanguageSwitcher';
+import { useLanguage } from './LanguageSwitcher';
 
 interface HeaderProps {
-  onDeployBtnClick: () => void;
   onGithubBtnClick: () => void;
+  onDeployBtnClick: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -20,16 +23,12 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         <div className="flex items-center space-x-4">
-          {/* Language Switcher */}
-          <LanguageSwitcher />
-
           <button
             onClick={onGithubBtnClick}
             className="flex items-center px-3 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
           >
             <span>{t('buttons.github')}</span>
           </button>
-
         </div>
       </div>
     </header>

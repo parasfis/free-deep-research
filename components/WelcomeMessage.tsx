@@ -1,4 +1,4 @@
-  import React from 'react';
+import React from 'react';
 import { useLanguage } from './LanguageSwitcher';
 
 interface WelcomeMessageProps {
@@ -21,7 +21,6 @@ export const WelcomeMessage: React.FC<WelcomeMessageProps> = ({
           {t('welcome.title')}
         </h2>
         <p className="text-gray-600">{t('welcome.description')}</p>
-
       </div>
     </div>
   );

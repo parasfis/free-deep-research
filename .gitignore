@@ -39,22 +39,6 @@ next-env.d.ts
 .env
 .edgeone
 edgeone.json
-
-# Tencent Cloud EdgeOne
-.env
-.edgeone
-.edgeone/*
-.tef_dist/*
-  
-# Tencent Cloud EdgeOne
-.env
-.edgeone
-.edgeone/*
-.tef_dist/*
-  
-# Tencent Cloud EdgeOne
-.env
-.edgeone
 .edgeone/*
 .tef_dist/*
   

@@ -5,8 +5,8 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'EdgeOne Pages AI: Free Deep Research',
-  description: `A web-based efficient deep research tool that leverages EdgeOne Pages' edge AI capabilities to provide users with a free experience of DeepSeek R1. This tool implements smooth web search functionality through searxng, making the research process more convenient.`,
+  title: 'TEAM: SPARK TITANS - Business Deep Research',
+  description: `A web-based efficient deep research tool that leverages edge AI capabilities to provide users with a comprehensive research experience. This tool implements smooth web search functionality, making the business research process more convenient and effective.`,
 };
 
 export default function RootLayout({

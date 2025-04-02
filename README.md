@@ -1,14 +1,20 @@
-# EdgeOne Pages AI: Free Deep Research
+# TEAM: SPARK TITANS - Business Deep Research
 
-A web-based efficient deep research tool that leverages EdgeOne Pages' edge AI capabilities to provide users with a free experience of DeepSeek R1. This tool implements smooth web search functionality through searxng, making the research process more convenient.
+A web-based efficient deep research tool that leverages edge AI capabilities to provide users with a comprehensive research experience. This tool implements smooth web search functionality, making the business research process more convenient and effective.
 
-This demo project streamlines the complete Deep Research workflow. For a higher quality research experience, you can flexibly replace it with other AI models or integrate professional search engines like tavily to further enhance research efficiency and accuracy.
+This project streamlines the complete Deep Research workflow. For a higher quality research experience, you can flexibly replace it with other AI models or integrate professional search engines like tavily to further enhance research efficiency and accuracy.
+
+## Features
+
+- AI-powered research assistant
+- Web search integration
+- Comprehensive answer generation with source citations
+- Clean, user-friendly interface
+- English language support
 
 ## Deploy
 
 [![Deploy with EdgeOne Pages](https://cdnstatic.tencentcs.com/edgeone/pages/deploy.svg)](https://edgeone.ai/pages/new?from=github&template=free-deep-research)
-
-More Templates: [EdgeOne Pages](https://edgeone.ai/pages/templates)
 
 ## Getting Started
 
