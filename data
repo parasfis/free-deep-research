@@ -158,3 +158,188 @@ begin
   return 'Order hierarchy calculation completed.';
 end;
 $$;
+
+
+
+
+create or replace procedure p_build_order_hierarchy_protegent(etl_date string)
+returns string
+language sql
+execute as caller
+as
+$$
+begin
+
+  begin transaction;
+  
+  -- Use direct DELETE statement
+  delete from order_hierarchy where etl_date = :etl_date;
+
+  -- Pre-filter data by transaction types to avoid CASE expressions in joins
+  create or replace temporary table tmp_orders_cancel as
+  select 
+      order_date, 
+      cancel_order_ref_num as join_ref_num, 
+      order_ref_num,
+      order_id,
+      trans_type,
+      etl_date,
+      firm
+  from w_order_protegent
+  where etl_date = :etl_date 
+    and trans_type in ('OR','OSL');
+
+  create or replace temporary table tmp_orders_ref as
+  select 
+      order_date, 
+      order_ref_num as join_ref_num,
+      order_ref_num, 
+      order_id,
+      trans_type,
+      etl_date,
+      firm
+  from w_order_protegent
+  where etl_date = :etl_date 
+    and trans_type in ('OX','ORJ');
+
+  -- Union the filtered datasets
+  create or replace temporary table tmp_orders_combined as
+  select * from tmp_orders_cancel
+  union all
+  select * from tmp_orders_ref;
+
+  -- First recursive CTE to process existing hierarchy relationships
+  insert into order_hierarchy (
+      entry_date, generation, global_id, hid, l_node, order_refnum, order_id,
+      parent_order_date, parent_refnum, ref_type, r_node, etl_date, firm
+  )
+  with recursive order_hierarchy_cte as (
+      select
+          oh.entry_date,
+          oh.generation,
+          oh.global_id,
+          oh.hid,
+          oh.l_node,
+          oh.order_refnum as order_ref_num,
+          oh.order_id,
+          oh.parent_order_date,
+          oh.parent_refnum,
+          oh.ref_type,
+          oh.r_node,
+          oh.etl_date,
+          oh.firm
+      from tmp_orders_combined o
+      join order_hierarchy oh on
+          o.join_ref_num = oh.order_refnum
+          and oh.ref_type in ('P','A')
+          and o.order_date = oh.entry_date
+          and o.firm = oh.firm
+  
+      union all
+  
+      select
+          o.order_date as entry_date,
+          oh.generation + 1 as generation,
+          oh.global_id,
+          oh.hid + 1 as hid,
+          oh.l_node + 1 as l_node,
+          o.order_ref_num,
+          o.order_id,
+          oh.entry_date as parent_order_date,
+          oh.order_ref_num as parent_refnum,
+          case
+              when o.trans_type = 'OX' then 'X'
+              when o.trans_type in ('OR', 'ORJ', 'OSL') then 'A'
+          end as ref_type,
+          oh.r_node + 1 as r_node,
+          o.etl_date,
+          o.firm
+      from tmp_orders_combined o
+      join order_hierarchy_cte oh on
+          o.join_ref_num = oh.order_ref_num
+          and oh.ref_type in ('P','A')
+          and o.firm = oh.firm
+  )
+  select * from order_hierarchy_cte;
+  
+  create or replace temporary table temp_existing_dates as
+  select
+      o.firm,
+      o.order_date,
+      max(global_id)::bigint as global_id
+  from w_order_protegent o
+  inner join order_hierarchy oh on o.order_date = oh.entry_date
+  and o.firm = oh.firm
+  where o.etl_date = :etl_date
+  group by o.order_date,o.firm;
+  
+  -- Filter parent order types
+  create or replace temporary table tmp_parent_orders as
+  select
+      order_date,
+      order_ref_num,
+      order_id,
+      trans_type,
+      etl_date,
+      firm
+  from w_order_protegent
+  where etl_date = :etl_date
+    and trans_type in ('OO', 'OS');
+  
+  -- Second recursive CTE with simplified join conditions
+  insert into order_hierarchy (
+      entry_date, generation, global_id, hid, l_node, order_refnum, order_id,
+      parent_order_date, parent_refnum, ref_type, r_node, etl_date, firm
+  )
+  with recursive order_hierarchy_cte as (
+      select
+          o.order_date as entry_date,
+          1 as generation,
+          row_number() over (partition by o.order_date order by o.order_date, o.order_ref_num) + nvl(ed.global_id,0) as global_id,
+          1 as hid,
+          1 as l_node,
+          order_ref_num,
+          order_id,
+          o.order_date as parent_order_date,
+          null as parent_refnum,
+          case
+              when trans_type = 'OO' then 'P'
+              when trans_type = 'OS' then 'P'
+          end as ref_type,
+          1 as r_node,
+          etl_date,
+          o.firm
+      from tmp_parent_orders o
+      left join temp_existing_dates ed on o.order_date = ed.order_date and o.firm = ed.firm
+  
+      union all
+  
+      select
+          o.order_date as entry_date,
+          oh.generation + 1 as generation,
+          oh.global_id,
+          oh.hid + 1 as hid,
+          oh.l_node + 1 as l_node,
+          o.order_ref_num,
+          o.order_id,
+          oh.entry_date as parent_order_date,
+          oh.order_ref_num as parent_refnum,
+          case
+              when o.trans_type = 'OX' then 'X'
+              when o.trans_type in ('OR', 'ORJ', 'OSL') then 'A'
+          end as ref_type,
+          oh.r_node + 1 as r_node,
+          o.etl_date,
+          o.firm
+      from tmp_orders_combined o
+      join order_hierarchy_cte oh on
+          o.join_ref_num = oh.order_ref_num
+          and oh.ref_type in ('P','A')
+          and o.firm = oh.firm
+  )
+  select * from order_hierarchy_cte;
+  
+  commit;
+  return 'Order hierarchy calculation completed.';
+end;
+$$;
