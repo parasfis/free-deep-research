@@ -172,10 +172,9 @@ begin
 
   begin transaction;
   
-  -- Use direct DELETE statement
+
   delete from order_hierarchy where etl_date = :etl_date;
 
-  -- Pre-filter data by transaction types to avoid CASE expressions in joins
   create or replace temporary table tmp_orders_cancel as
   select 
       order_date, 
@@ -184,7 +183,8 @@ begin
       order_id,
       trans_type,
       etl_date,
-      firm
+      firm,
+      1 as priority_rank
   from w_order_protegent
   where etl_date = :etl_date 
     and trans_type in ('OR','OSL');
@@ -197,18 +197,39 @@ begin
       order_id,
       trans_type,
       etl_date,
-      firm
+      firm,
+      2 as priority_rank
   from w_order_protegent
   where etl_date = :etl_date 
     and trans_type in ('OX','ORJ');
 
-  -- Union the filtered datasets
-  create or replace temporary table tmp_orders_combined as
-  select * from tmp_orders_cancel
-  union all
-  select * from tmp_orders_ref;
 
-  -- First recursive CTE to process existing hierarchy relationships
+  create or replace temporary table tmp_orders_combined as
+  select 
+      o.order_date,
+      o.join_ref_num,
+      o.order_ref_num,
+      o.order_id,
+      o.trans_type,
+      o.etl_date,
+      o.firm,
+      o.priority_rank
+  from (
+      select 
+          *, 
+          row_number() over (
+              partition by join_ref_num, firm, order_date 
+              order by priority_rank
+          ) as row_num
+      from (
+          select * from tmp_orders_cancel
+          union all 
+          select * from tmp_orders_ref
+      )
+  ) o
+  where o.row_num = 1;  
+
+
   insert into order_hierarchy (
       entry_date, generation, global_id, hid, l_node, order_refnum, order_id,
       parent_order_date, parent_refnum, ref_type, r_node, etl_date, firm
@@ -273,7 +294,7 @@ begin
   where o.etl_date = :etl_date
   group by o.order_date,o.firm;
   
-  -- Filter parent order types
+
   create or replace temporary table tmp_parent_orders as
   select
       order_date,
@@ -286,7 +307,7 @@ begin
   where etl_date = :etl_date
     and trans_type in ('OO', 'OS');
   
-  -- Second recursive CTE with simplified join conditions
+
   insert into order_hierarchy (
       entry_date, generation, global_id, hid, l_node, order_refnum, order_id,
       parent_order_date, parent_refnum, ref_type, r_node, etl_date, firm
