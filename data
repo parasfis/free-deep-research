@@ -7,8 +7,25 @@ $$
 begin
 
   begin transaction;
-  delete from order_hierarchy where etl_date=:etl_date;
+  
+  -- Use direct DELETE statement
+  delete from order_hierarchy where etl_date = :etl_date;
+  
+  -- First, materialize the frequently used data with proper filtering
+  create or replace temporary table tmp_w_order_filtered as
+  select /*+ MATERIALIZED */
+      order_date, 
+      order_ref_num, 
+      order_id,
+      cancel_order_ref_num,
+      trans_type,
+      etl_date,
+      firm
+  from w_order_protegent
+  where etl_date = :etl_date
+    and trans_type in ('OR', 'OSL', 'OX', 'ORJ', 'OO', 'OS');
 
+  -- First recursive CTE to process existing hierarchy relationships
   insert into order_hierarchy (
       entry_date, generation, global_id, hid, l_node, order_refnum, order_id,
       parent_order_date, parent_refnum, ref_type, r_node, etl_date, firm
@@ -28,7 +45,7 @@ begin
           oh.r_node,
           oh.etl_date,
           oh.firm
-      from w_order_protegent o
+      from tmp_w_order_filtered o
       join order_hierarchy oh on
           (case
               when o.trans_type in ('OR','OSL') then o.cancel_order_ref_num = oh.order_refnum and oh.ref_type in ('P','A')
@@ -37,7 +54,6 @@ begin
           and o.order_date = oh.entry_date
           and o.firm = oh.firm
       where o.trans_type in ('OR','OSL','OX','ORJ')
-      and o.etl_date = :etl_date
   
       union all
   
@@ -58,14 +74,14 @@ begin
           oh.r_node + 1 as r_node,
           o.etl_date,
           o.firm
-      from w_order_protegent o
+      from tmp_w_order_filtered o
       join order_hierarchy_cte oh on
           (case
               when o.trans_type in ('OR','OSL') then o.cancel_order_ref_num = oh.order_ref_num and oh.ref_type in ('P','A')
               when o.trans_type in ('OX','ORJ') then o.order_ref_num = oh.order_ref_num and oh.ref_type in ('P','A')
           end)
           and o.firm = oh.firm
-      where o.etl_date = :etl_date and o.trans_type in ('OR','OSL','OX','ORJ')
+      where o.trans_type in ('OR','OSL','OX','ORJ')
   )
   select * from order_hierarchy_cte;
   
@@ -74,11 +90,11 @@ begin
       o.firm,
       o.order_date,
       max(global_id)::bigint as global_id
-  from w_order_protegent o
-  inner join order_hierarchy oh on o.order_date = oh.entry_date
-  and o.firm = oh.firm
-  where o.etl_date = :etl_date
-  group by o.order_date,o.firm;
+  from tmp_w_order_filtered o
+  inner join order_hierarchy oh 
+      on o.order_date = oh.entry_date
+      and o.firm = oh.firm
+  group by o.order_date, o.firm;
   
   insert into order_hierarchy (
       entry_date, generation, global_id, hid, l_node, order_refnum, order_id,
@@ -102,9 +118,11 @@ begin
           1 as r_node,
           etl_date,
           o.firm
-      from w_order_protegent o
-      left join temp_existing_dates ed on o.order_date = ed.order_date and o.firm = ed.firm
-      where trans_type in ('OO', 'OS') and etl_date = :etl_date
+      from tmp_w_order_filtered o
+      left join temp_existing_dates ed 
+          on o.order_date = ed.order_date 
+          and o.firm = ed.firm
+      where trans_type in ('OO', 'OS')
   
       union all
   
@@ -125,14 +143,14 @@ begin
           oh.r_node + 1 as r_node,
           o.etl_date,
           o.firm
-      from w_order_protegent o
+      from tmp_w_order_filtered o
       join order_hierarchy_cte oh on
           (case
               when o.trans_type in ('OR','OSL') then o.cancel_order_ref_num = oh.order_ref_num and oh.ref_type in ('P','A')
               when o.trans_type in ('OX','ORJ') then o.order_ref_num = oh.order_ref_num and oh.ref_type in ('P','A')
           end)
           and o.firm = oh.firm
-      where o.etl_date = :etl_date and o.trans_type in ('OR','OSL','OX','ORJ')
+      where o.trans_type in ('OR','OSL','OX','ORJ')
   )
   select * from order_hierarchy_cte;
   
