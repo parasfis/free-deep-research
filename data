@@ -1,315 +1,207 @@
 -- ===============================!===============!===================!========
 -- Result Tables (Trade)
 -- ===============================!===============!===================!========
-create table R_Trade (
-  ActedAs                         varchar(1)                              null,
-  ActedCapacity                   varchar(1)                              null,
-  AskPrice                        numeric(15,6)                           null,
-  AsOf                            char(1)                                 null,
-  BidPrice                        numeric(15,6)                           null,
-  ContraBroker                    varchar(4)                              null,
-  CustBranch                      varchar(6)                              null,
-  Exchange                        varchar(4)                              null,
-  ExecutingBroker                 varchar(4)                              null,
-  ExecutionReason                 smallint                                null,
-  ExecutionVenue                  varchar(4)                              null,
-  Firm                            varchar(4)                              null,
-  HasRiskless                     varchar(1)                              null,
-  ISONum                          varchar(20)                             null,
-  LeavesQty                       int                                     null,
-  OMSDate                         date                                    null,
-  OMSDateTime                     datetime                                null,
-  OnOpenOrClose                   varchar(1)                              null,
-  OrderSystem                     varchar(10)                             null,
-  Price                           numeric(15,6)                           null,
-  ProcessType                     varchar(2)                              null,
-  Quantity                        int                                     null,
-  RecordSeqNum                    int                                     null,
-  RouteType                       varchar(1)                              null,
-  Rule_Count                      smallint                                null,
-  Rules                           varchar(200)                            null,
-  RuleSets                        varchar(200)                            null,
-  Score                           smallint                                null,
-  SecurityType                    varchar(4)                              null,
-  ShortName                       varchar(20)                             null,
-  Side                            varchar(1)                              null,
-  SideStatus                      varchar(1)                              null,
-  Submit_Date                     datetime                                null,
-  SubShortName                    varchar(20)                             null,
-  Symbol                          varchar(25)                             null,
-  TradeModifier                   varchar(4)                              null,
-  Trader                          varchar(10)                             null,
-  TradeRefNum                     varchar(64)                             null,
-  TradeReport                     varchar(1)                              null,
-  TradeThru                       char(1)                                 null,
-  TradeThruReason                 varchar(24)                             null,
-  TransDate                       date                                    null,
-  TransDateTime                   datetime                                null,
-  TransType                       varchar(3)                              null,
-  Unit_Key                        varchar(10)                             null,
-  CustInfo                        varchar(34)                             null,
-  SSExemptReason                  char(1)                                 null,
-  SSRestriction                   char(1)                                 null,
-  ActRefNum                       varchar(40)                             null,
-  OrderID                         varchar(60)                             null,
-  OrderRefNum                     varchar(40)                             null,
-  TradeID                         varchar(60)                             null,
-  Desk                            varchar(12)                              null,
-  ISIN                            varchar(12)                             null,
-  Result_Key                      bigint                              not null,
-  UnderlyingSymbol                varchar(25)                             NULL,
-  TickPilotFlag                   char(1)                                 null,
-  TickSizeGroup                   char(2)                                 null,
-  OMSUser                         char(10)                                null,
-  constraint pk_R_Trade primary key clustered (Result_Key)
-)
-go
-create HG index ix_TradeID       on R_Trade(TradeID)
-go
-create HG index ix_TradeRefNum   on R_Trade(TradeRefNum)
-go
-create HG index ix_OrderID       on R_Trade(OrderID)
-go
-create HG index ix_Submit_Date   on R_Trade(Submit_Date)
-go
-create HG index ix_Unit_Key      on R_Trade(Unit_Key)
-go
-create HG index ix_OMSDate       on R_Trade(OMSDate)
-go
-create HG index ix_OMSDateTime   on R_Trade(OMSDateTime)
-go
-create HG index ix_TransDate     on R_Trade(TransDate)
-go
-create HG index ix_TransDateTime on R_Trade(TransDateTime)
-go
-create HG index ix_Symbol        on R_Trade(Symbol)
-go
-create HG index ix_ProcessType   on R_Trade(ProcessType)
-go
-create HG index ix_Score         on R_Trade(Score)
-go
-create HG index ix_Firm          on R_Trade(Firm)
-go
-create HG index ix_Desk          on R_Trade(Desk)
-go
-create HG index ix_UndSymbol     on R_Trade(UnderlyingSymbol)
-go
+CREATE TABLE r_trade (
+  acted_as                        STRING,
+  acted_capacity                  STRING,
+  ask_price                       NUMBER(15,6),
+  as_of                           STRING,
+  bid_price                       NUMBER(15,6),
+  contra_broker                   STRING,
+  cust_branch                     STRING,
+  exchange                        STRING,
+  executing_broker                STRING,
+  execution_reason                INT,
+  execution_venue                 STRING,
+  firm                            STRING,
+  has_riskless                    STRING,
+  iso_num                         STRING,
+  leaves_qty                      INT,
+  oms_date                        DATE,
+  oms_date_time                   TIMESTAMP_NTZ,
+  on_open_or_close                STRING,
+  order_system                    STRING,
+  price                           NUMBER(15,6),
+  process_type                    STRING,
+  quantity                        INT,
+  record_seq_num                  INT,
+  route_type                      STRING,
+  rule_count                      INT,
+  rules                           STRING,
+  rule_sets                       STRING,
+  score                           INT,
+  security_type                   STRING,
+  short_name                      STRING,
+  side                            STRING,
+  side_status                     STRING,
+  submit_date                     TIMESTAMP_NTZ,
+  sub_short_name                  STRING,
+  symbol                          STRING,
+  trade_modifier                  STRING,
+  trader                          STRING,
+  trade_ref_num                   STRING,
+  trade_report                    STRING,
+  trade_thru                      STRING,
+  trade_thru_reason               STRING,
+  trans_date                      DATE,
+  trans_date_time                 TIMESTAMP_NTZ,
+  trans_type                      STRING,
+  unit_key                        STRING,
+  cust_info                       STRING,
+  ss_exempt_reason                STRING,
+  ss_restriction                  STRING,
+  act_ref_num                     STRING,
+  order_id                        STRING,
+  order_ref_num                   STRING,
+  trade_id                        STRING,
+  desk                            STRING,
+  isin                            STRING,
+  result_key                      BIGINT NOT NULL,
+  underlying_symbol               STRING,
+  tick_pilot_flag                 STRING,
+  tick_size_group                 STRING,
+  oms_user                        STRING,
+  PRIMARY KEY (result_key)
+);
 
-create table R_Trade_Detail (
-  Profile                         varchar(32767)                      not null,
-  Result_Key                      bigint                              not null,
-  constraint pk_R_Trade_Detail primary key clustered (Result_Key),
-  constraint fk_R_Trade_Detail foreign key (Result_Key) references R_Trade(Result_Key)
-)
-go
+CREATE TABLE r_trade_detail (
+  profile                         STRING NOT NULL,
+  result_key                      BIGINT NOT NULL,
+  PRIMARY KEY (result_key),
+  FOREIGN KEY (result_key) REFERENCES r_trade(result_key)
+);
 
-create table R_Trade_Reason (
-  Row_Key                         bigint          identity            not null,
-  Create_Date                     date            default getdate()   not null,
-  Create_Date_Time                datetime        default getdate()   not null,
-  Audit_ID                        varchar(50)                             null,
-  Impact                          smallint                                null,
-  Rule_ID                         smallint                                null,
-  RuleSet_ID                      smallint                                null,
-  Common_Text                     varchar(500)                            null,
-  Main_Text                       varchar(500)                            null,
-  Result_Key                      bigint                              not null,
-  constraint pk_R_Trade_Reason primary key clustered (Row_Key),
-  constraint fk_R_Trade_Reason foreign key (Result_Key) references R_Trade(Result_Key)
-)
-go
-create unique HG index ix_Unique on R_Trade_Reason(Result_Key,Rule_ID)
-go
-create HG index ix_Rule_ID          on R_Trade_Reason(Rule_ID)
-go
-create HG index ix_RuleSet_ID       on R_Trade_Reason(RuleSet_ID)
-go
-create HG index ix_Create_Date      on R_Trade_Reason(Create_Date)
-go
-create HG index ix_Create_Date_Time on R_Trade_Reason(Create_Date_Time)
-go
+CREATE TABLE r_trade_reason (
+  row_key                         BIGINT IDENTITY(1,1) NOT NULL,
+  create_date                     DATE DEFAULT CURRENT_DATE() NOT NULL,
+  create_date_time                TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+  audit_id                        STRING,
+  impact                          INT,
+  rule_id                         INT,
+  ruleset_id                      INT,
+  common_text                     STRING,
+  main_text                       STRING,
+  result_key                      BIGINT NOT NULL,
+  PRIMARY KEY (row_key),
+  FOREIGN KEY (result_key) REFERENCES r_trade(result_key)
+);
 
-create table R_Trade_Status (
-  Row_Key                         bigint          identity            not null,
-  Create_Date                     date            default getdate()   not null,
-  Create_Date_Time                datetime        default getdate()   not null,
-  Rule_ID                         smallint                                null,
-  Comments                        varchar(2000)                           null,
-  Review_Status                   smallint                                null,
-  Update_Date                     datetime                                null,
-  Update_User                     varchar(10)                             null,
-  Result_Key                      bigint                              not null,
-  constraint pk_R_Trade_Status primary key clustered (Row_Key),
-  constraint fk_R_Trade_Status foreign key (Result_Key) references R_Trade(Result_Key)
-)
-go
-create unique HG index ix_Unique    on R_Trade_Status(Result_Key, Update_Date)
-go
-create HG index ix_Rule_ID          on R_Trade_Status(Rule_ID)
-go
-create HG index ix_Review_Status    on R_Trade_Status(Review_Status)
-go
-create HG index ix_Update_User      on R_Trade_Status(Update_User)
-go
-create HG index ix_Create_Date      on R_Trade_Status(Create_Date)
-go
-create HG index ix_Create_Date_Time on R_Trade_Status(Create_Date_Time)
-go
+CREATE TABLE r_trade_status (
+  row_key                         BIGINT IDENTITY(1,1) NOT NULL,
+  create_date                     DATE DEFAULT CURRENT_DATE() NOT NULL,
+  create_date_time                TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+  rule_id                         INT,
+  comments                        STRING,
+  review_status                   INT,
+  update_date                     TIMESTAMP_NTZ,
+  update_user                     STRING,
+  result_key                      BIGINT NOT NULL,
+  PRIMARY KEY (row_key),
+  FOREIGN KEY (result_key) REFERENCES r_trade(result_key)
+);
 
 ---------------------
 
 -- ===============================!===============!===================!========
 -- Result Tables (Order)
 -- ===============================!===============!===================!========
-create table R_Order (
-  ActedAs                         varchar(1)                              null,
-  AllOrNone                       char(1)                                 null,
-  AskPrice                        numeric(15,6)                           null,
-  BidPrice                        numeric(15,6)                           null,
-  ContraBroker                    varchar(4)                              null,
-  CustAcctNum                     varchar(20)                             null,
-  CustBranch                      varchar(6)                              null,
-  Exchange                        varchar(4)                              null,
-  ExecutedQty                     int                                     null,
-  Firm                            varchar(4)                              null,
-  LimitPrice                      numeric(15,6)                           null,
-  MarketMaker                     char(1)                                 null,
-  NotHeld                         char(1)                                 null,
-  OMSDate                         date                                    null,
-  OMSDateTime                     datetime                                null,
-  OMSUser                         varchar(10)                             null,
-  OnOpenOrClose                   varchar(1)                              null,
-  OrderSystem                     varchar(10)                             null,
-  OrderType                       varchar(1)                              null,
-  ProcessType                     varchar(2)                              null,
-  Quantity                        int                                     null,
-  RecordSeqNum                    int                                     null,
-  Rule_Count                      smallint                                null,
-  Rules                           varchar(200)                            null,
-  RuleSets                        varchar(200)                            null,
-  Score                           smallint                                null,
-  SecurityType                    varchar(4)                              null,
-  ShortName                       varchar(20)                             null,
-  Side                            varchar(1)                              null,
-  SideStatus                      varchar(1)                              null,
-  Submit_Date                     datetime                                null,
-  SubShortName                    varchar(20)                             null,
-  Symbol                          varchar(25)                             null,
-  TimeInForce                     varchar(3)                              null,
-  TradeAlong                      varchar(1)                              null,
-  Trader                          varchar(10)                             null,
-  TransType                       varchar(3)                              null,
-  Unit_Key                        varchar(10)                             null,
-  CustInfo                        varchar(34)                             null,
-  SSExemptReason                  char(1)                                 null,
-  SSRestriction                   char(1)                                 null,
-  OrderID                         varchar(60)                             null,
-  OrderRefNum                     varchar(40)                             null,
-  LocateInfo                      varchar(30)                             null,
-  Desk                            varchar(12)                              null,
-  CustOrFirm                      char(1)                                 null,
-  MaturityDate                    date                                    null,
-  OpenOrClose                     char(1)                                 null,
-  PutOrCall                       char(1)                                 null,
-  StrikePrice                     numeric(15,6)                           null,
-  ContractMultiplier              numeric(15,6)                           null,
-  LegRatioQty                     numeric(15,6)                           null,
-  UnderlyingSymbol                varchar(25)                             null,
-  SourceOMS                       varchar(6)                              null,
-  FlagAsset                       varchar(30)                             null,
-  ISIN                            varchar(12)                             null,
-  LegNum                          varchar(20)                             null,
-  Result_Key                      bigint                              not null,
-  TickPilotFlag                   char(1)                                 null,
-  TickSizeGroup                   char(2)                                 null,
-  Instructions                    varchar(85)                             null,
-  constraint pk_R_Order primary key (Result_Key)
-)
-go
-create HG index ix_Submit_Date   on R_Order(Submit_Date)
-go
-create HG index ix_Unit_Key      on R_Order(Unit_Key)
-go
-create HG index ix_OMSDate       on R_Order(OMSDate)
-go
-create HG index ix_OrderID       on R_Order(OrderID)
-go
-create HG index ix_OrderRefNum   on R_Order(OrderRefNum)
-go
-create HG index ix_Symbol        on R_Order(Symbol)
-go
-create HG index ix_ProcessType   on R_Order(ProcessType)
-go
-create HG index ix_TransType     on R_Order(TransType)
-go
-create HG index ix_Score         on R_Order(Score)
-go
-create HG index ix_Firm          on R_Order(Firm)
-go
-create HG index ix_Desk          on R_Order(Desk)
-go
-create HG index ix_SourceOMS     on R_Order(SourceOMS)
-go
-create HG index ix_FlagAsset     on R_Order(FlagAsset)
-go
+CREATE TABLE r_order (
+  acted_as                        STRING,
+  all_or_none                     STRING,
+  ask_price                       NUMBER(15,6),
+  bid_price                       NUMBER(15,6),
+  contra_broker                   STRING,
+  cust_acct_num                   STRING,
+  cust_branch                     STRING,
+  exchange                        STRING,
+  executed_qty                    INT,
+  firm                            STRING,
+  limit_price                     NUMBER(15,6),
+  market_maker                    STRING,
+  not_held                        STRING,
+  oms_date                        DATE,
+  oms_date_time                   TIMESTAMP_NTZ,
+  oms_user                        STRING,
+  on_open_or_close                STRING,
+  order_system                    STRING,
+  order_type                      STRING,
+  process_type                    STRING,
+  quantity                        INT,
+  record_seq_num                  INT,
+  rule_count                      INT,
+  rules                           STRING,
+  rule_sets                       STRING,
+  score                           INT,
+  security_type                   STRING,
+  short_name                      STRING,
+  side                            STRING,
+  side_status                     STRING,
+  submit_date                     TIMESTAMP_NTZ,
+  sub_short_name                  STRING,
+  symbol                          STRING,
+  time_in_force                   STRING,
+  trade_along                     STRING,
+  trader                          STRING,
+  trans_type                      STRING,
+  unit_key                        STRING,
+  cust_info                       STRING,
+  ss_exempt_reason                STRING,
+  ss_restriction                  STRING,
+  order_id                        STRING,
+  order_ref_num                   STRING,
+  locate_info                     STRING,
+  desk                            STRING,
+  cust_or_firm                    STRING,
+  maturity_date                   DATE,
+  open_or_close                   STRING,
+  put_or_call                     STRING,
+  strike_price                    NUMBER(15,6),
+  contract_multiplier             NUMBER(15,6),
+  leg_ratio_qty                   NUMBER(15,6),
+  underlying_symbol               STRING,
+  source_oms                      STRING,
+  flag_asset                      STRING,
+  isin                            STRING,
+  leg_num                         STRING,
+  result_key                      BIGINT NOT NULL,
+  tick_pilot_flag                 STRING,
+  tick_size_group                 STRING,
+  instructions                    STRING,
+  PRIMARY KEY (result_key)
+);
 
-create table R_Order_Detail (
-  Profile                         varchar(32767)                      not null,
-  Result_Key                      bigint                              not null,
-  constraint pk_R_Order_Detail primary key (Result_Key),
-  constraint fk_R_Order_Detail foreign key (Result_Key) references R_Order(Result_Key)
-)
-go
+CREATE TABLE r_order_detail (
+  profile                         STRING NOT NULL,
+  result_key                      BIGINT NOT NULL,
+  PRIMARY KEY (result_key),
+  FOREIGN KEY (result_key) REFERENCES r_order(result_key)
+);
 
-create table R_Order_Reason (
-  Row_Key                         bigint          identity            not null,
-  Create_Date                     date            default getdate()   not null,
-  Create_Date_Time                datetime        default getdate()   not null,
-  Audit_ID                        varchar(50)                             null,
-  Impact                          smallint                                null,
-  Rule_ID                         smallint                                null,
-  RuleSet_ID                      smallint                                null,
-  Common_Text                     varchar(500)                            null,
-  Main_Text                       varchar(500)                            null,
-  Result_Key                      bigint                              not null,
-  constraint pk_R_Order_Reason primary key (Row_Key),
-  constraint fk_R_Order_Reason foreign key (Result_Key) references R_Order(Result_Key)
-)
-go
-create unique HG index ix_Unique    on R_Order_Reason(Result_Key,Rule_ID)
-go
-create HG index ix_Rule_ID          on R_Order_Reason(Rule_ID)
-go
-create HG index ix_RuleSet_ID       on R_Order_Reason(RuleSet_ID)
-go
-create HG index ix_Create_Date      on R_Order_Reason(Create_Date)
-go
-create HG index ix_Create_Date_Time on R_Order_Reason(Create_Date_Time)
-go
+CREATE TABLE r_order_reason (
+  row_key                         BIGINT IDENTITY(1,1) NOT NULL,
+  create_date                     DATE DEFAULT CURRENT_DATE() NOT NULL,
+  create_date_time                TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+  audit_id                        STRING,
+  impact                          INT,
+  rule_id                         INT,
+  ruleset_id                      INT,
+  common_text                     STRING,
+  main_text                       STRING,
+  result_key                      BIGINT NOT NULL,
+  PRIMARY KEY (row_key),
+  FOREIGN KEY (result_key) REFERENCES r_order(result_key)
+);
 
-create table R_Order_Status (
-  Row_Key                         bigint          identity            not null,
-  Create_Date                     date            default getdate()   not null,
-  Create_Date_Time                datetime        default getdate()   not null,
-  Rule_ID                         smallint                                null,
-  Comments                        varchar(2000)                           null,
-  Review_Status                   smallint                                null,
-  Update_Date                     datetime                                null,
-  Update_User                     varchar(10)                             null,
-  Result_Key                      bigint                              not null,
-  constraint pk_R_Order_Status primary key (Row_Key),
-  constraint fk_R_Order_Status foreign key (Result_Key) references R_Order(Result_Key)
-)
-go
-create unique HG index ix_Unique    on R_Order_Status(Result_Key, Update_Date)
-go
-create HG index ix_Rule_ID          on R_Order_Status(Rule_ID)
-go
-create HG index ix_Review_Status    on R_Order_Status(Review_Status)
-go
-create HG index ix_Update_User      on R_Order_Status(Update_User)
-go
-create HG index ix_Create_Date      on R_Order_Status(Create_Date)
-go
-create HG index ix_Create_Date_Time on R_Order_Status(Create_Date_Time)
-go
+CREATE TABLE r_order_status (
+  row_key                         BIGINT IDENTITY(1,1) NOT NULL,
+  create_date                     DATE DEFAULT CURRENT_DATE() NOT NULL,
+  create_date_time                TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+  rule_id                         INT,
+  comments                        STRING,
+  review_status                   INT,
+  update_date                     TIMESTAMP_NTZ,
+  update_user                     STRING,
+  result_key                      BIGINT NOT NULL,
+  PRIMARY KEY (row_key),
+  FOREIGN KEY (result_key) REFERENCES r_order(result_key)
+);
