@@ -205,3 +205,526 @@ CREATE TABLE r_order_status (
   PRIMARY KEY (row_key),
   FOREIGN KEY (result_key) REFERENCES r_order(result_key)
 );
+
+-- ===============================!===============!===================!========
+-- Sample Data
+-- ===============================!===============!===================!========
+
+-- Sample data for r_trade table
+INSERT INTO r_trade (
+  acted_as, acted_capacity, ask_price, as_of, bid_price, contra_broker, cust_branch, 
+  exchange, executing_broker, execution_reason, execution_venue, firm, has_riskless, 
+  iso_num, leaves_qty, oms_date, oms_date_time, on_open_or_close, order_system, price, 
+  process_type, quantity, record_seq_num, route_type, rule_count, rules, rule_sets, 
+  score, security_type, short_name, side, side_status, submit_date, sub_short_name, 
+  symbol, trade_modifier, trader, trade_ref_num, trade_report, trade_thru, 
+  trade_thru_reason, trans_date, trans_date_time, trans_type, unit_key, cust_info, 
+  ss_exempt_reason, ss_restriction, act_ref_num, order_id, order_ref_num, trade_id, 
+  desk, isin, result_key, underlying_symbol, tick_pilot_flag, tick_size_group, oms_user
+) VALUES
+(
+  'A', 'P', 156.25, 'N', 156.15, 'ABCD', 'NYC001',
+  'NYSE', 'EFGH', 1, 'NYSE', 'IJKL', 'N',
+  'ISO123456', 0, '2023-01-15', '2023-01-15T09:30:15', 'O', 'SYS001', 156.20,
+  '01', 100, 1, 'D', 2, 'Rule1,Rule2', 'RuleSet1',
+  95, 'EQU', 'APPLE INC', 'B', 'F', '2023-01-15T09:30:00', 'AAPL',
+  'AAPL', 'F', 'TRADER001', 'TR123456789', 'Y', 'N',
+  NULL, '2023-01-15', '2023-01-15T09:31:00', 'NRM', 'UNIT001', 'CUST001',
+  NULL, 'N', 'ACT001', 'ORD001', 'ORDREF001', 'TRD001',
+  'EQUITY', 'US0378331005', 1001, NULL, 'N', '01', 'USER001'
+);
+
+-- Insert 14 more rows with variations
+INSERT INTO r_trade (
+  acted_as, acted_capacity, ask_price, as_of, bid_price, contra_broker, cust_branch, 
+  exchange, executing_broker, execution_reason, execution_venue, firm, has_riskless, 
+  iso_num, leaves_qty, oms_date, oms_date_time, on_open_or_close, order_system, price, 
+  process_type, quantity, record_seq_num, route_type, rule_count, rules, rule_sets, 
+  score, security_type, short_name, side, side_status, submit_date, sub_short_name, 
+  symbol, trade_modifier, trader, trade_ref_num, trade_report, trade_thru, 
+  trade_thru_reason, trans_date, trans_date_time, trans_type, unit_key, cust_info, 
+  ss_exempt_reason, ss_restriction, act_ref_num, order_id, order_ref_num, trade_id, 
+  desk, isin, result_key, underlying_symbol, tick_pilot_flag, tick_size_group, oms_user
+) VALUES
+(
+  'A', 'A', 185.75, 'N', 185.50, 'ABCD', 'NYC001',
+  'NYSE', 'EFGH', 1, 'NYSE', 'IJKL', 'N',
+  'ISO123457', 0, '2023-01-15', '2023-01-15T09:32:15', 'O', 'SYS001', 185.60,
+  '01', 200, 2, 'D', 1, 'Rule1', 'RuleSet1',
+  90, 'EQU', 'MICROSOFT CORP', 'S', 'F', '2023-01-15T09:32:00', 'MSFT',
+  'MSFT', 'F', 'TRADER001', 'TR123456790', 'Y', 'N',
+  NULL, '2023-01-15', '2023-01-15T09:33:00', 'NRM', 'UNIT001', 'CUST001',
+  NULL, 'N', 'ACT002', 'ORD002', 'ORDREF002', 'TRD002',
+  'EQUITY', 'US5949181045', 1002, NULL, 'N', '01', 'USER001'
+),
+(
+  'A', 'P', 45.25, 'N', 45.15, 'EFGH', 'NYC002',
+  'NSDQ', 'ABCD', 1, 'NSDQ', 'IJKL', 'N',
+  'ISO123458', 0, '2023-01-15', '2023-01-15T09:35:15', 'O', 'SYS001', 45.20,
+  '01', 500, 3, 'D', 1, 'Rule1', 'RuleSet1',
+  92, 'EQU', 'INTEL CORP', 'B', 'F', '2023-01-15T09:35:00', 'INTC',
+  'INTC', 'F', 'TRADER002', 'TR123456791', 'Y', 'N',
+  NULL, '2023-01-15', '2023-01-15T09:36:00', 'NRM', 'UNIT001', 'CUST002',
+  NULL, 'N', 'ACT003', 'ORD003', 'ORDREF003', 'TRD003',
+  'EQUITY', 'US4581401001', 1003, NULL, 'N', '01', 'USER002'
+),
+(
+  'A', 'A', 153.30, 'N', 153.20, 'IJKL', 'NYC002',
+  'NSDQ', 'MNOP', 1, 'NSDQ', 'ABCD', 'N',
+  'ISO123459', 0, '2023-01-15', '2023-01-15T09:38:15', 'O', 'SYS001', 153.25,
+  '01', 150, 4, 'D', 2, 'Rule1,Rule2', 'RuleSet1',
+  88, 'EQU', 'AMAZON.COM INC', 'S', 'F', '2023-01-15T09:38:00', 'AMZN',
+  'AMZN', 'F', 'TRADER002', 'TR123456792', 'Y', 'N',
+  NULL, '2023-01-15', '2023-01-15T09:39:00', 'NRM', 'UNIT001', 'CUST002',
+  NULL, 'N', 'ACT004', 'ORD004', 'ORDREF004', 'TRD004',
+  'EQUITY', 'US0231351067', 1004, NULL, 'N', '01', 'USER002'
+),
+(
+  'P', 'P', 245.75, 'N', 245.50, 'MNOP', 'NYC003',
+  'NSDQ', 'ABCD', 1, 'NSDQ', 'EFGH', 'N',
+  'ISO123460', 0, '2023-01-15', '2023-01-15T09:42:15', 'O', 'SYS001', 245.65,
+  '01', 75, 5, 'D', 1, 'Rule1', 'RuleSet1',
+  91, 'EQU', 'TESLA INC', 'B', 'F', '2023-01-15T09:42:00', 'TSLA',
+  'TSLA', 'F', 'TRADER003', 'TR123456793', 'Y', 'N',
+  NULL, '2023-01-15', '2023-01-15T09:43:00', 'NRM', 'UNIT002', 'CUST003',
+  NULL, 'N', 'ACT005', 'ORD005', 'ORDREF005', 'TRD005',
+  'EQUITY', 'US88160R1014', 1005, NULL, 'N', '01', 'USER003'
+),
+(
+  'P', 'A', 115.50, 'N', 115.35, 'QRST', 'NYC003',
+  'NYSE', 'UVWX', 1, 'NYSE', 'EFGH', 'N',
+  'ISO123461', 0, '2023-01-15', '2023-01-15T09:45:15', 'O', 'SYS001', 115.40,
+  '01', 300, 6, 'D', 1, 'Rule1', 'RuleSet1',
+  94, 'EQU', 'ALPHABET INC', 'B', 'F', '2023-01-15T09:45:00', 'GOOGL',
+  'GOOGL', 'F', 'TRADER003', 'TR123456794', 'Y', 'N',
+  NULL, '2023-01-15', '2023-01-15T09:46:00', 'NRM', 'UNIT002', 'CUST003',
+  NULL, 'N', 'ACT006', 'ORD006', 'ORDREF006', 'TRD006',
+  'EQUITY', 'US02079K3059', 1006, NULL, 'N', '01', 'USER003'
+),
+(
+  'A', 'P', 42.15, 'N', 42.05, 'ABCD', 'NYC004',
+  'NYSE', 'EFGH', 1, 'NYSE', 'IJKL', 'N',
+  'ISO123462', 0, '2023-01-15', '2023-01-15T09:48:15', 'O', 'SYS001', 42.10,
+  '01', 1000, 7, 'D', 1, 'Rule1', 'RuleSet1',
+  87, 'EQU', 'CISCO SYSTEMS INC', 'S', 'F', '2023-01-15T09:48:00', 'CSCO',
+  'CSCO', 'F', 'TRADER004', 'TR123456795', 'Y', 'N',
+  NULL, '2023-01-15', '2023-01-15T09:49:00', 'NRM', 'UNIT002', 'CUST004',
+  NULL, 'N', 'ACT007', 'ORD007', 'ORDREF007', 'TRD007',
+  'EQUITY', 'US17275R1023', 1007, NULL, 'N', '01', 'USER004'
+),
+(
+  'A', 'A', 28.75, 'N', 28.65, 'EFGH', 'NYC004',
+  'NSDQ', 'ABCD', 1, 'NSDQ', 'IJKL', 'N',
+  'ISO123463', 0, '2023-01-15', '2023-01-15T09:52:15', 'O', 'SYS001', 28.70,
+  '01', 800, 8, 'D', 1, 'Rule1', 'RuleSet1',
+  93, 'EQU', 'FORD MOTOR CO', 'B', 'F', '2023-01-15T09:52:00', 'F',
+  'F', 'F', 'TRADER004', 'TR123456796', 'Y', 'N',
+  NULL, '2023-01-15', '2023-01-15T09:53:00', 'NRM', 'UNIT002', 'CUST004',
+  NULL, 'N', 'ACT008', 'ORD008', 'ORDREF008', 'TRD008',
+  'EQUITY', 'US3453708600', 1008, NULL, 'N', '01', 'USER004'
+),
+(
+  'P', 'P', 67.85, 'N', 67.75, 'IJKL', 'NYC005',
+  'NSDQ', 'MNOP', 1, 'NSDQ', 'ABCD', 'N',
+  'ISO123464', 0, '2023-01-15', '2023-01-15T09:55:15', 'O', 'SYS001', 67.80,
+  '01', 400, 9, 'D', 2, 'Rule1,Rule2', 'RuleSet1',
+  89, 'EQU', 'COCA-COLA CO', 'S', 'F', '2023-01-15T09:55:00', 'KO',
+  'KO', 'F', 'TRADER005', 'TR123456797', 'Y', 'N',
+  NULL, '2023-01-15', '2023-01-15T09:56:00', 'NRM', 'UNIT003', 'CUST005',
+  NULL, 'N', 'ACT009', 'ORD009', 'ORDREF009', 'TRD009',
+  'EQUITY', 'US1912161007', 1009, NULL, 'N', '01', 'USER005'
+),
+(
+  'P', 'A', 145.25, 'N', 145.10, 'MNOP', 'NYC005',
+  'NYSE', 'ABCD', 1, 'NYSE', 'EFGH', 'N',
+  'ISO123465', 0, '2023-01-15', '2023-01-15T09:58:15', 'O', 'SYS001', 145.15,
+  '01', 200, 10, 'D', 1, 'Rule1', 'RuleSet1',
+  96, 'EQU', 'JOHNSON & JOHNSON', 'B', 'F', '2023-01-15T09:58:00', 'JNJ',
+  'JNJ', 'F', 'TRADER005', 'TR123456798', 'Y', 'N',
+  NULL, '2023-01-15', '2023-01-15T09:59:00', 'NRM', 'UNIT003', 'CUST005',
+  NULL, 'N', 'ACT010', 'ORD010', 'ORDREF010', 'TRD010',
+  'EQUITY', 'US4781601046', 1010, NULL, 'N', '01', 'USER005'
+),
+(
+  'A', 'P', 215.50, 'N', 215.35, 'QRST', 'NYC006',
+  'NYSE', 'UVWX', 1, 'NYSE', 'EFGH', 'N',
+  'ISO123466', 0, '2023-01-15', '2023-01-15T10:02:15', 'O', 'SYS001', 215.40,
+  '01', 150, 11, 'D', 1, 'Rule1', 'RuleSet1',
+  92, 'EQU', 'GOLDMAN SACHS GRP', 'B', 'F', '2023-01-15T10:02:00', 'GS',
+  'GS', 'F', 'TRADER006', 'TR123456799', 'Y', 'N',
+  NULL, '2023-01-15', '2023-01-15T10:03:00', 'NRM', 'UNIT003', 'CUST006',
+  NULL, 'N', 'ACT011', 'ORD011', 'ORDREF011', 'TRD011',
+  'EQUITY', 'US38141G1040', 1011, NULL, 'N', '01', 'USER006'
+),
+(
+  'A', 'A', 182.25, 'N', 182.10, 'ABCD', 'NYC006',
+  'NSDQ', 'EFGH', 1, 'NSDQ', 'IJKL', 'N',
+  'ISO123467', 0, '2023-01-15', '2023-01-15T10:05:15', 'O', 'SYS001', 182.20,
+  '01', 120, 12, 'D', 1, 'Rule1', 'RuleSet1',
+  91, 'EQU', 'VISA INC', 'S', 'F', '2023-01-15T10:05:00', 'V',
+  'V', 'F', 'TRADER006', 'TR123456800', 'Y', 'N',
+  NULL, '2023-01-15', '2023-01-15T10:06:00', 'NRM', 'UNIT003', 'CUST006',
+  NULL, 'N', 'ACT012', 'ORD012', 'ORDREF012', 'TRD012',
+  'EQUITY', 'US92826C8394', 1012, NULL, 'N', '01', 'USER006'
+),
+(
+  'P', 'P', 138.75, 'N', 138.60, 'EFGH', 'NYC007',
+  'NSDQ', 'ABCD', 1, 'NSDQ', 'IJKL', 'N',
+  'ISO123468', 0, '2023-01-15', '2023-01-15T10:08:15', 'O', 'SYS001', 138.65,
+  '01', 250, 13, 'D', 2, 'Rule1,Rule2', 'RuleSet1',
+  88, 'EQU', 'PAYPAL HOLDINGS', 'B', 'F', '2023-01-15T10:08:00', 'PYPL',
+  'PYPL', 'F', 'TRADER007', 'TR123456801', 'Y', 'N',
+  NULL, '2023-01-15', '2023-01-15T10:09:00', 'NRM', 'UNIT004', 'CUST007',
+  NULL, 'N', 'ACT013', 'ORD013', 'ORDREF013', 'TRD013',
+  'EQUITY', 'US70450Y1038', 1013, NULL, 'N', '01', 'USER007'
+),
+(
+  'P', 'A', 53.25, 'N', 53.15, 'IJKL', 'NYC007',
+  'NYSE', 'MNOP', 1, 'NYSE', 'ABCD', 'N',
+  'ISO123469', 0, '2023-01-15', '2023-01-15T10:12:15', 'O', 'SYS001', 53.20,
+  '01', 600, 14, 'D', 1, 'Rule1', 'RuleSet1',
+  94, 'EQU', 'BANK OF AMERICA', 'S', 'F', '2023-01-15T10:12:00', 'BAC',
+  'BAC', 'F', 'TRADER007', 'TR123456802', 'Y', 'N',
+  NULL, '2023-01-15', '2023-01-15T10:13:00', 'NRM', 'UNIT004', 'CUST007',
+  NULL, 'N', 'ACT014', 'ORD014', 'ORDREF014', 'TRD014',
+  'EQUITY', 'US0605051046', 1014, NULL, 'N', '01', 'USER007'
+),
+(
+  'A', 'P', 358.50, 'N', 358.25, 'MNOP', 'NYC008',
+  'NYSE', 'ABCD', 1, 'NYSE', 'EFGH', 'N',
+  'ISO123470', 0, '2023-01-15', '2023-01-15T10:15:15', 'O', 'SYS001', 358.40,
+  '01', 50, 15, 'D', 1, 'Rule1', 'RuleSet1',
+  97, 'EQU', 'NETFLIX INC', 'B', 'F', '2023-01-15T10:15:00', 'NFLX',
+  'NFLX', 'F', 'TRADER008', 'TR123456803', 'Y', 'N',
+  NULL, '2023-01-15', '2023-01-15T10:16:00', 'NRM', 'UNIT004', 'CUST008',
+  NULL, 'N', 'ACT015', 'ORD015', 'ORDREF015', 'TRD015',
+  'EQUITY', 'US64110L1061', 1015, NULL, 'N', '01', 'USER008'
+);
+
+-- ===============================!===============!===================!========
+-- Sample Data (continued)
+-- ===============================!===============!===================!========
+
+-- Sample data for r_trade_detail table
+INSERT INTO r_trade_detail (profile, result_key) VALUES
+('{"tradeDetails":{"executionTime":"09:30:15","marketCondition":"normal","tradingVenue":"NYSE","settlementDate":"2023-01-17"}}', 1001),
+('{"tradeDetails":{"executionTime":"09:32:15","marketCondition":"normal","tradingVenue":"NYSE","settlementDate":"2023-01-17"}}', 1002),
+('{"tradeDetails":{"executionTime":"09:35:15","marketCondition":"normal","tradingVenue":"NASDAQ","settlementDate":"2023-01-17"}}', 1003),
+('{"tradeDetails":{"executionTime":"09:38:15","marketCondition":"normal","tradingVenue":"NASDAQ","settlementDate":"2023-01-17"}}', 1004),
+('{"tradeDetails":{"executionTime":"09:42:15","marketCondition":"normal","tradingVenue":"NASDAQ","settlementDate":"2023-01-17"}}', 1005),
+('{"tradeDetails":{"executionTime":"09:45:15","marketCondition":"normal","tradingVenue":"NYSE","settlementDate":"2023-01-17"}}', 1006),
+('{"tradeDetails":{"executionTime":"09:48:15","marketCondition":"normal","tradingVenue":"NYSE","settlementDate":"2023-01-17"}}', 1007),
+('{"tradeDetails":{"executionTime":"09:52:15","marketCondition":"normal","tradingVenue":"NASDAQ","settlementDate":"2023-01-17"}}', 1008),
+('{"tradeDetails":{"executionTime":"09:55:15","marketCondition":"normal","tradingVenue":"NASDAQ","settlementDate":"2023-01-17"}}', 1009),
+('{"tradeDetails":{"executionTime":"09:58:15","marketCondition":"normal","tradingVenue":"NYSE","settlementDate":"2023-01-17"}}', 1010),
+('{"tradeDetails":{"executionTime":"10:02:15","marketCondition":"normal","tradingVenue":"NYSE","settlementDate":"2023-01-17"}}', 1011),
+('{"tradeDetails":{"executionTime":"10:05:15","marketCondition":"normal","tradingVenue":"NASDAQ","settlementDate":"2023-01-17"}}', 1012),
+('{"tradeDetails":{"executionTime":"10:08:15","marketCondition":"normal","tradingVenue":"NASDAQ","settlementDate":"2023-01-17"}}', 1013),
+('{"tradeDetails":{"executionTime":"10:12:15","marketCondition":"normal","tradingVenue":"NYSE","settlementDate":"2023-01-17"}}', 1014),
+('{"tradeDetails":{"executionTime":"10:15:15","marketCondition":"normal","tradingVenue":"NYSE","settlementDate":"2023-01-17"}}', 1015);
+
+-- Sample data for r_trade_reason
+INSERT INTO r_trade_reason (audit_id, impact, rule_id, ruleset_id, common_text, main_text, result_key) VALUES
+('AUD001', 1, 101, 1, 'Price deviation check', 'Trade price deviates from market price by less than threshold', 1001),
+('AUD002', 2, 102, 1, 'Volume check', 'Trade volume within acceptable limits', 1002),
+('AUD003', 1, 101, 1, 'Price deviation check', 'Trade price deviates from market price by less than threshold', 1003),
+('AUD004', 3, 103, 2, 'Order timing check', 'Order processed within acceptable time frame', 1004),
+('AUD005', 1, 104, 2, 'Regulatory compliance', 'Trade complies with regulatory requirements', 1005),
+('AUD006', 2, 102, 1, 'Volume check', 'Trade volume within acceptable limits', 1006),
+('AUD007', 1, 105, 3, 'Market impact check', 'Trade has minimal market impact', 1007),
+('AUD008', 2, 101, 1, 'Price deviation check', 'Trade price deviates from market price by less than threshold', 1008),
+('AUD009', 3, 103, 2, 'Order timing check', 'Order processed within acceptable time frame', 1009),
+('AUD010', 1, 104, 2, 'Regulatory compliance', 'Trade complies with regulatory requirements', 1010),
+('AUD011', 2, 105, 3, 'Market impact check', 'Trade has minimal market impact', 1011),
+('AUD012', 1, 101, 1, 'Price deviation check', 'Trade price deviates from market price by less than threshold', 1012),
+('AUD013', 2, 102, 1, 'Volume check', 'Trade volume within acceptable limits', 1013),
+('AUD014', 3, 103, 2, 'Order timing check', 'Order processed within acceptable time frame', 1014),
+('AUD015', 1, 104, 2, 'Regulatory compliance', 'Trade complies with regulatory requirements', 1015);
+
+-- ===============================!===============!===================!========
+-- Sample Data (continued)
+-- ===============================!===============!===================!========
+
+-- Sample data for r_trade_status
+INSERT INTO r_trade_status (rule_id, comments, review_status, update_date, update_user, result_key) VALUES
+(101, 'Trade reviewed and approved', 1, '2023-01-15T10:30:00', 'REVIEWER1', 1001),
+(102, 'Volume within normal range', 1, '2023-01-15T10:31:00', 'REVIEWER1', 1002),
+(101, 'Trade reviewed and approved', 1, '2023-01-15T10:32:00', 'REVIEWER1', 1003),
+(103, 'Timing verified', 1, '2023-01-15T10:33:00', 'REVIEWER2', 1004),
+(104, 'Regulatory check passed', 1, '2023-01-15T10:34:00', 'REVIEWER2', 1005),
+(102, 'Volume within normal range', 1, '2023-01-15T10:35:00', 'REVIEWER2', 1006),
+(105, 'No significant market impact', 1, '2023-01-15T10:36:00', 'REVIEWER3', 1007),
+(101, 'Trade reviewed and approved', 1, '2023-01-15T10:37:00', 'REVIEWER3', 1008),
+(103, 'Timing verified', 1, '2023-01-15T10:38:00', 'REVIEWER3', 1009),
+(104, 'Regulatory check passed', 1, '2023-01-15T10:39:00', 'REVIEWER4', 1010),
+(105, 'No significant market impact', 1, '2023-01-15T10:40:00', 'REVIEWER4', 1011),
+(101, 'Trade reviewed and approved', 1, '2023-01-15T10:41:00', 'REVIEWER4', 1012),
+(102, 'Volume within normal range', 1, '2023-01-15T10:42:00', 'REVIEWER5', 1013),
+(103, 'Timing verified', 1, '2023-01-15T10:43:00', 'REVIEWER5', 1014),
+(104, 'Regulatory check passed', 1, '2023-01-15T10:44:00', 'REVIEWER5', 1015);
+
+-- Sample data for r_order table
+INSERT INTO r_order (
+  acted_as, all_or_none, ask_price, bid_price, contra_broker, cust_acct_num, 
+  cust_branch, exchange, executed_qty, firm, limit_price, market_maker, 
+  not_held, oms_date, oms_date_time, oms_user, on_open_or_close, order_system, 
+  order_type, process_type, quantity, record_seq_num, rule_count, rules, 
+  rule_sets, score, security_type, short_name, side, side_status, submit_date, 
+  sub_short_name, symbol, time_in_force, trade_along, trader, trans_type, 
+  unit_key, cust_info, ss_exempt_reason, ss_restriction, order_id, order_ref_num, 
+  locate_info, desk, cust_or_firm, maturity_date, open_or_close, put_or_call, 
+  strike_price, contract_multiplier, leg_ratio_qty, underlying_symbol, source_oms, 
+  flag_asset, isin, leg_num, result_key, tick_pilot_flag, tick_size_group, instructions
+) VALUES
+(
+  'A', 'N', 156.25, 156.15, 'ABCD', 'ACCT001',
+  'NYC001', 'NYSE', 100, 'IJKL', 156.20, 'N',
+  'N', '2023-01-15', '2023-01-15T09:29:15', 'USER001', 'O', 'SYS001',
+  'L', '01', 100, 1, 2, 'Rule1,Rule2', 'RuleSet1',
+  95, 'EQU', 'APPLE INC', 'B', 'F', '2023-01-15T09:29:00',
+  'AAPL', 'AAPL', 'DAY', 'N', 'TRADER001', 'NEW',
+  'UNIT001', 'CUST001', NULL, 'N', 'ORD001', 'ORDREF001',
+  NULL, 'EQUITY', 'C', NULL, NULL, NULL,
+  NULL, NULL, NULL, NULL, 'SYS001',
+  'STOCK', 'US0378331005', NULL, 2001, 'N', '01', 'Market order'
+);
+
+-- Insert 14 more rows with variations
+INSERT INTO r_order (
+  acted_as, all_or_none, ask_price, bid_price, contra_broker, cust_acct_num, 
+  cust_branch, exchange, executed_qty, firm, limit_price, market_maker, 
+  not_held, oms_date, oms_date_time, oms_user, on_open_or_close, order_system, 
+  order_type, process_type, quantity, record_seq_num, rule_count, rules, 
+  rule_sets, score, security_type, short_name, side, side_status, submit_date, 
+  sub_short_name, symbol, time_in_force, trade_along, trader, trans_type, 
+  unit_key, cust_info, ss_exempt_reason, ss_restriction, order_id, order_ref_num, 
+  locate_info, desk, cust_or_firm, maturity_date, open_or_close, put_or_call, 
+  strike_price, contract_multiplier, leg_ratio_qty, underlying_symbol, source_oms, 
+  flag_asset, isin, leg_num, result_key, tick_pilot_flag, tick_size_group, instructions
+) VALUES
+(
+  'A', 'N', 185.75, 185.50, 'ABCD', 'ACCT001',
+  'NYC001', 'NYSE', 200, 'IJKL', 185.60, 'N',
+  'N', '2023-01-15', '2023-01-15T09:31:15', 'USER001', 'O', 'SYS001',
+  'L', '01', 200, 2, 1, 'Rule1', 'RuleSet1',
+  90, 'EQU', 'MICROSOFT CORP', 'S', 'F', '2023-01-15T09:31:00',
+  'MSFT', 'MSFT', 'DAY', 'N', 'TRADER001', 'NEW',
+  'UNIT001', 'CUST001', NULL, 'N', 'ORD002', 'ORDREF002',
+  NULL, 'EQUITY', 'C', NULL, NULL, NULL,
+  NULL, NULL, NULL, NULL, 'SYS001',
+  'STOCK', 'US5949181045', NULL, 2002, 'N', '01', 'Limit order at 185.60'
+),
+(
+  'A', 'N', 45.25, 45.15, 'EFGH', 'ACCT002',
+  'NYC002', 'NSDQ', 500, 'IJKL', 45.20, 'N',
+  'N', '2023-01-15', '2023-01-15T09:34:15', 'USER002', 'O', 'SYS001',
+  'L', '01', 500, 3, 1, 'Rule1', 'RuleSet1',
+  92, 'EQU', 'INTEL CORP', 'B', 'F', '2023-01-15T09:34:00',
+  'INTC', 'INTC', 'DAY', 'N', 'TRADER002', 'NEW',
+  'UNIT001', 'CUST002', NULL, 'N', 'ORD003', 'ORDREF003',
+  NULL, 'EQUITY', 'C', NULL, NULL, NULL,
+  NULL, NULL, NULL, NULL, 'SYS001',
+  'STOCK', 'US4581401001', NULL, 2003, 'N', '01', 'Limit order at 45.20'
+),
+(
+  'A', 'N', 153.30, 153.20, 'IJKL', 'ACCT002',
+  'NYC002', 'NSDQ', 150, 'ABCD', 153.25, 'N',
+  'N', '2023-01-15', '2023-01-15T09:37:15', 'USER002', 'O', 'SYS001',
+  'L', '01', 150, 4, 2, 'Rule1,Rule2', 'RuleSet1',
+  88, 'EQU', 'AMAZON.COM INC', 'S', 'F', '2023-01-15T09:37:00',
+  'AMZN', 'AMZN', 'DAY', 'N', 'TRADER002', 'NEW',
+  'UNIT001', 'CUST002', NULL, 'N', 'ORD004', 'ORDREF004',
+  NULL, 'EQUITY', 'C', NULL, NULL, NULL,
+  NULL, NULL, NULL, NULL, 'SYS001',
+  'STOCK', 'US0231351067', NULL, 2004, 'N', '01', 'Limit order at 153.25'
+),
+(
+  'P', 'N', 245.75, 245.50, 'MNOP', 'ACCT003',
+  'NYC003', 'NSDQ', 75, 'EFGH', 245.65, 'N',
+  'N', '2023-01-15', '2023-01-15T09:41:15', 'USER003', 'O', 'SYS001',
+  'L', '01', 75, 5, 1, 'Rule1', 'RuleSet1',
+  91, 'EQU', 'TESLA INC', 'B', 'F', '2023-01-15T09:41:00',
+  'TSLA', 'TSLA', 'DAY', 'N', 'TRADER003', 'NEW',
+  'UNIT002', 'CUST003', NULL, 'N', 'ORD005', 'ORDREF005',
+  NULL, 'EQUITY', 'C', NULL, NULL, NULL,
+  NULL, NULL, NULL, NULL, 'SYS001',
+  'STOCK', 'US88160R1014', NULL, 2005, 'N', '01', 'Limit order at 245.65'
+),
+(
+  'P', 'N', 115.50, 115.35, 'QRST', 'ACCT003',
+  'NYC003', 'NYSE', 300, 'EFGH', 115.40, 'N',
+  'N', '2023-01-15', '2023-01-15T09:44:15', 'USER003', 'O', 'SYS001',
+  'L', '01', 300, 6, 1, 'Rule1', 'RuleSet1',
+  94, 'EQU', 'ALPHABET INC', 'B', 'F', '2023-01-15T09:44:00',
+  'GOOGL', 'GOOGL', 'DAY', 'N', 'TRADER003', 'NEW',
+  'UNIT002', 'CUST003', NULL, 'N', 'ORD006', 'ORDREF006',
+  NULL, 'EQUITY', 'C', NULL, NULL, NULL,
+  NULL, NULL, NULL, NULL, 'SYS001',
+  'STOCK', 'US02079K3059', NULL, 2006, 'N', '01', 'Limit order at 115.40'
+),
+(
+  'A', 'N', 42.15, 42.05, 'ABCD', 'ACCT004',
+  'NYC004', 'NYSE', 1000, 'IJKL', 42.10, 'N',
+  'N', '2023-01-15', '2023-01-15T09:47:15', 'USER004', 'O', 'SYS001',
+  'L', '01', 1000, 7, 1, 'Rule1', 'RuleSet1',
+  87, 'EQU', 'CISCO SYSTEMS INC', 'S', 'F', '2023-01-15T09:47:00',
+  'CSCO', 'CSCO', 'DAY', 'N', 'TRADER004', 'NEW',
+  'UNIT002', 'CUST004', NULL, 'N', 'ORD007', 'ORDREF007',
+  NULL, 'EQUITY', 'C', NULL, NULL, NULL,
+  NULL, NULL, NULL, NULL, 'SYS001',
+  'STOCK', 'US17275R1023', NULL, 2007, 'N', '01', 'Limit order at 42.10'
+),
+(
+  'A', 'N', 28.75, 28.65, 'EFGH', 'ACCT004',
+  'NYC004', 'NSDQ', 800, 'IJKL', 28.70, 'N',
+  'N', '2023-01-15', '2023-01-15T09:51:15', 'USER004', 'O', 'SYS001',
+  'L', '01', 800, 8, 1, 'Rule1', 'RuleSet1',
+  93, 'EQU', 'FORD MOTOR CO', 'B', 'F', '2023-01-15T09:51:00',
+  'F', 'F', 'DAY', 'N', 'TRADER004', 'NEW',
+  'UNIT002', 'CUST004', NULL, 'N', 'ORD008', 'ORDREF008',
+  NULL, 'EQUITY', 'C', NULL, NULL, NULL,
+  NULL, NULL, NULL, NULL, 'SYS001',
+  'STOCK', 'US3453708600', NULL, 2008, 'N', '01', 'Limit order at 28.70'
+),
+(
+  'P', 'N', 67.85, 67.75, 'IJKL', 'ACCT005',
+  'NYC005', 'NSDQ', 400, 'ABCD', 67.80, 'N',
+  'N', '2023-01-15', '2023-01-15T09:54:15', 'USER005', 'O', 'SYS001',
+  'L', '01', 400, 9, 2, 'Rule1,Rule2', 'RuleSet1',
+  89, 'EQU', 'COCA-COLA CO', 'S', 'F', '2023-01-15T09:54:00',
+  'KO', 'KO', 'DAY', 'N', 'TRADER005', 'NEW',
+  'UNIT003', 'CUST005', NULL, 'N', 'ORD009', 'ORDREF009',
+  NULL, 'EQUITY', 'C', NULL, NULL, NULL,
+  NULL, NULL, NULL, NULL, 'SYS001',
+  'STOCK', 'US1912161007', NULL, 2009, 'N', '01', 'Limit order at 67.80'
+),
+(
+  'P', 'N', 145.25, 145.10, 'MNOP', 'ACCT005',
+  'NYC005', 'NYSE', 200, 'EFGH', 145.15, 'N',
+  'N', '2023-01-15', '2023-01-15T09:57:15', 'USER005', 'O', 'SYS001',
+  'L', '01', 200, 10, 1, 'Rule1', 'RuleSet1',
+  96, 'EQU', 'JOHNSON & JOHNSON', 'B', 'F', '2023-01-15T09:57:00',
+  'JNJ', 'JNJ', 'DAY', 'N', 'TRADER005', 'NEW',
+  'UNIT003', 'CUST005', NULL, 'N', 'ORD010', 'ORDREF010',
+  NULL, 'EQUITY', 'C', NULL, NULL, NULL,
+  NULL, NULL, NULL, NULL, 'SYS001',
+  'STOCK', 'US4781601046', NULL, 2010, 'N', '01', 'Limit order at 145.15'
+),
+(
+  'A', 'N', 215.50, 215.35, 'QRST', 'ACCT006',
+  'NYC006', 'NYSE', 150, 'EFGH', 215.40, 'N',
+  'N', '2023-01-15', '2023-01-15T10:01:15', 'USER006', 'O', 'SYS001',
+  'L', '01', 150, 11, 1, 'Rule1', 'RuleSet1',
+  92, 'EQU', 'GOLDMAN SACHS GRP', 'B', 'F', '2023-01-15T10:01:00',
+  'GS', 'GS', 'DAY', 'N', 'TRADER006', 'NEW',
+  'UNIT003', 'CUST006', NULL, 'N', 'ORD011', 'ORDREF011',
+  NULL, 'EQUITY', 'C', NULL, NULL, NULL,
+  NULL, NULL, NULL, NULL, 'SYS001',
+  'STOCK', 'US38141G1040', NULL, 2011, 'N', '01', 'Limit order at 215.40'
+),
+(
+  'A', 'N', 182.25, 182.10, 'ABCD', 'ACCT006',
+  'NYC006', 'NSDQ', 120, 'IJKL', 182.20, 'N',
+  'N', '2023-01-15', '2023-01-15T10:04:15', 'USER006', 'O', 'SYS001',
+  'L', '01', 120, 12, 1, 'Rule1', 'RuleSet1',
+  91, 'EQU', 'VISA INC', 'S', 'F', '2023-01-15T10:04:00',
+  'V', 'V', 'DAY', 'N', 'TRADER006', 'NEW',
+  'UNIT003', 'CUST006', NULL, 'N', 'ORD012', 'ORDREF012',
+  NULL, 'EQUITY', 'C', NULL, NULL, NULL,
+  NULL, NULL, NULL, NULL, 'SYS001',
+  'STOCK', 'US92826C8394', NULL, 2012, 'N', '01', 'Limit order at 182.20'
+),
+(
+  'P', 'N', 138.75, 138.60, 'EFGH', 'ACCT007',
+  'NYC007', 'NSDQ', 250, 'IJKL', 138.65, 'N',
+  'N', '2023-01-15', '2023-01-15T10:07:15', 'USER007', 'O', 'SYS001',
+  'L', '01', 250, 13, 2, 'Rule1,Rule2', 'RuleSet1',
+  88, 'EQU', 'PAYPAL HOLDINGS', 'B', 'F', '2023-01-15T10:07:00',
+  'PYPL', 'PYPL', 'DAY', 'N', 'TRADER007', 'NEW',
+  'UNIT004', 'CUST007', NULL, 'N', 'ORD013', 'ORDREF013',
+  NULL, 'EQUITY', 'C', NULL, NULL, NULL,
+  NULL, NULL, NULL, NULL, 'SYS001',
+  'STOCK', 'US70450Y1038', NULL, 2013, 'N', '01', 'Limit order at 138.65'
+),
+(
+  'P', 'N', 53.25, 53.15, 'IJKL', 'ACCT007',
+  'NYC007', 'NYSE', 600, 'ABCD', 53.20, 'N',
+  'N', '2023-01-15', '2023-01-15T10:11:15', 'USER007', 'O', 'SYS001',
+  'L', '01', 600, 14, 1, 'Rule1', 'RuleSet1',
+  94, 'EQU', 'BANK OF AMERICA', 'S', 'F', '2023-01-15T10:11:00',
+  'BAC', 'BAC', 'DAY', 'N', 'TRADER007', 'NEW',
+  'UNIT004', 'CUST007', NULL, 'N', 'ORD014', 'ORDREF014',
+  NULL, 'EQUITY', 'C', NULL, NULL, NULL,
+  NULL, NULL, NULL, NULL, 'SYS001',
+  'STOCK', 'US0605051046', NULL, 2014, 'N', '01', 'Limit order at 53.20'
+),
+(
+  'A', 'N', 358.50, 358.25, 'MNOP', 'ACCT008',
+  'NYC008', 'NYSE', 50, 'EFGH', 358.40, 'N',
+  'N', '2023-01-15', '2023-01-15T10:14:15', 'USER008', 'O', 'SYS001',
+  'L', '01', 50, 15, 1, 'Rule1', 'RuleSet1',
+  97, 'EQU', 'NETFLIX INC', 'B', 'F', '2023-01-15T10:14:00',
+  'NFLX', 'NFLX', 'DAY', 'N', 'TRADER008', 'NEW',
+  'UNIT004', 'CUST008', NULL, 'N', 'ORD015', 'ORDREF015',
+  NULL, 'EQUITY', 'C', NULL, NULL, NULL,
+  NULL, NULL, NULL, NULL, 'SYS001',
+  'STOCK', 'US64110L1061', NULL, 2015, 'N', '01', 'Limit order at 358.40'
+);
+
+-- ===============================!===============!===================!========
+-- Sample Data (continued)
+-- ===============================!===============!===================!========
+
+-- Sample data for r_order_detail
+INSERT INTO r_order_detail (profile, result_key) VALUES
+('{"orderDetails":{"entryTime":"09:29:15","orderOrigin":"electronic","routingInstructions":"SMART","clientOrderId":"CO001"}}', 2001),
+('{"orderDetails":{"entryTime":"09:31:15","orderOrigin":"electronic","routingInstructions":"SMART","clientOrderId":"CO002"}}', 2002),
+('{"orderDetails":{"entryTime":"09:34:15","orderOrigin":"electronic","routingInstructions":"SMART","clientOrderId":"CO003"}}', 2003),
+('{"orderDetails":{"entryTime":"09:37:15","orderOrigin":"electronic","routingInstructions":"SMART","clientOrderId":"CO004"}}', 2004),
+('{"orderDetails":{"entryTime":"09:41:15","orderOrigin":"electronic","routingInstructions":"SMART","clientOrderId":"CO005"}}', 2005),
+('{"orderDetails":{"entryTime":"09:44:15","orderOrigin":"electronic","routingInstructions":"SMART","clientOrderId":"CO006"}}', 2006),
+('{"orderDetails":{"entryTime":"09:47:15","orderOrigin":"electronic","routingInstructions":"SMART","clientOrderId":"CO007"}}', 2007),
+('{"orderDetails":{"entryTime":"09:51:15","orderOrigin":"electronic","routingInstructions":"SMART","clientOrderId":"CO008"}}', 2008),
+('{"orderDetails":{"entryTime":"09:54:15","orderOrigin":"electronic","routingInstructions":"SMART","clientOrderId":"CO009"}}', 2009),
+('{"orderDetails":{"entryTime":"09:57:15","orderOrigin":"electronic","routingInstructions":"SMART","clientOrderId":"CO010"}}', 2010),
+('{"orderDetails":{"entryTime":"10:01:15","orderOrigin":"electronic","routingInstructions":"SMART","clientOrderId":"CO011"}}', 2011),
+('{"orderDetails":{"entryTime":"10:04:15","orderOrigin":"electronic","routingInstructions":"SMART","clientOrderId":"CO012"}}', 2012),
+('{"orderDetails":{"entryTime":"10:07:15","orderOrigin":"electronic","routingInstructions":"SMART","clientOrderId":"CO013"}}', 2013),
+('{"orderDetails":{"entryTime":"10:11:15","orderOrigin":"electronic","routingInstructions":"SMART","clientOrderId":"CO014"}}', 2014),
+('{"orderDetails":{"entryTime":"10:14:15","orderOrigin":"electronic","routingInstructions":"SMART","clientOrderId":"CO015"}}', 2015);
+
+-- Sample data for r_order_reason
+INSERT INTO r_order_reason (audit_id, impact, rule_id, ruleset_id, common_text, main_text, result_key) VALUES
+('AUD101', 1, 201, 1, 'Order validation', 'Order parameters within acceptable limits', 2001),
+('AUD102', 2, 202, 1, 'Limit price check', 'Limit price is reasonable for market conditions', 2002),
+('AUD103', 1, 203, 1, 'Account validation', 'Account has proper trading permissions', 2003),
+('AUD104', 3, 204, 2, 'Credit check', 'Account has sufficient buying power', 2004),
+('AUD105', 1, 205, 2, 'Regulatory check', 'Order complies with regulatory requirements', 2005),
+('AUD106', 2, 201, 1, 'Order validation', 'Order parameters within acceptable limits', 2006),
+('AUD107', 1, 202, 1, 'Limit price check', 'Limit price is reasonable for market conditions', 2007),
+('AUD108', 2, 203, 1, 'Account validation', 'Account has proper trading permissions', 2008),
+('AUD109', 3, 204, 2, 'Credit check', 'Account has sufficient buying power', 2009),
+('AUD110', 1, 205, 2, 'Regulatory check', 'Order complies with regulatory requirements', 2010),
+('AUD111', 2, 201, 1, 'Order validation', 'Order parameters within acceptable limits', 2011),
+('AUD112', 1, 202, 1, 'Limit price check', 'Limit price is reasonable for market conditions', 2012),
+('AUD113', 2, 203, 1, 'Account validation', 'Account has proper trading permissions', 2013),
+('AUD114', 3, 204, 2, 'Credit check', 'Account has sufficient buying power', 2014),
+('AUD115', 1, 205, 2, 'Regulatory check', 'Order complies with regulatory requirements', 2015);
+
+-- Sample data for r_order_status
+INSERT INTO r_order_status (rule_id, comments, review_status, update_date, update_user, result_key) VALUES
+(201, 'Order validated and accepted', 1, '2023-01-15T09:30:00', 'REVIEWER1', 2001),
+(202, 'Limit price within market range', 1, '2023-01-15T09:32:00', 'REVIEWER1', 2002),
+(203, 'Account permissions verified', 1, '2023-01-15T09:35:00', 'REVIEWER1', 2003),
+(204, 'Buying power confirmed', 1, '2023-01-15T09:38:00', 'REVIEWER2', 2004),
+(205, 'Regulatory compliance checked', 1, '2023-01-15T09:42:00', 'REVIEWER2', 2005),
+(201, 'Order validated and accepted', 1, '2023-01-15T09:45:00', 'REVIEWER2', 2006),
+(202, 'Limit price within market range', 1, '2023-01-15T09:48:00', 'REVIEWER3', 2007),
+(203, 'Account permissions verified', 1, '2023-01-15T09:52:00', 'REVIEWER3', 2008),
+(204, 'Buying power confirmed', 1, '2023-01-15T09:55:00', 'REVIEWER3', 2009),
+(205, 'Regulatory compliance checked', 1, '2023-01-15T09:58:00', 'REVIEWER4', 2010),
+(201, 'Order validated and accepted', 1, '2023-01-15T10:02:00', 'REVIEWER4', 2011),
+(202, 'Limit price within market range', 1, '2023-01-15T10:05:00', 'REVIEWER4', 2012),
+(203, 'Account permissions verified', 1, '2023-01-15T10:08:00', 'REVIEWER5', 2013),
+(204, 'Buying power confirmed', 1, '2023-01-15T10:12:00', 'REVIEWER5', 2014),
+(205, 'Regulatory compliance checked', 1, '2023-01-15T10:15:00', 'REVIEWER5', 2015);
